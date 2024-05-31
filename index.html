@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    my destination:
+    add new destination- <input id="nameDestination"> <br>
+    add score to the destination- <input id="scoreDestination"><br>
+    add descript of the destination- <input id="descriptDestination"><br>
+    add image of of the destination- <input id="imageDestination"><br>
+    <button onclick="addDest()">add a new destination</button>
+    <div id="display" class="card-group"></div>
+
+</body>
+<script>
+    let myDest = []
+    myDest = getDestination()
+    async function getDestination() {
+        const response = await axios.get('http://localhost:3000/myDestination')
+        myDest = response.data
+        displayDestination()
+    }
+
+
+    function displayDestination() {
+        let finalHTML = "";
+        for (let i = 0; i < myDest.length; i++) {
+            let destination = myDest[i]
+            const destinationStr = `
+                <div class="card" style="width: 18rem; margin: 10px;">
+                    <img src="${destination.image}" class="card-img-top" alt="${destination.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${destination.name} ${destination.score}</h5>
+                        <p class="card-text">${destination.description}</p>
+                        <button class="btn btn-danger" onclick="deleteDestination("${destination.id}")">Delete</button>
+                        <button class="btn btn-primary" onclick="editDestination(${i})">Edit</button>
+                    </div>
+                </div>`
+            finalHTML += destinationStr;
+        }
+        display.innerHTML = finalHTML;
+        return finalHTML;
+    }
+    display.innerHTML = displayDestination()
+
+
+
+    async function addDest() {
+        console.log("checking")
+        let destination = {
+            id: "",
+            name: nameDestination.value,
+            score: scoreDestination.value,
+            descript: descriptDestination.value,
+            image: imageDestination.value
+        }
+        await axios.post('http://localhost:3000/myDestination', destination)
+        console.log(myDestination)
+        displayDestination()
+    }
+
+    async function deleteDestination(index) {
+        //const id = myDestinations[index].id
+        const response = await axios.delete(`http://localhost:3000/posts/${id}`);
+        console.log('Post deleted successfully!', response.data);
+        getDestination()
+    }
+
+    displayDestination()
+</script>
+
+</html>

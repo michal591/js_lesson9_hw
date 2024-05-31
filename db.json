@@ -1,0 +1,25 @@
+{
+  "myDestination": [
+    {
+      "id": "1",
+      "name": "Barcelona",
+      "score": 8.5,
+      "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/439254619.jpg?k=ed925afa9e137e370c02a9819598354034159f0daab165864c9db2b14a0600ee&o=&hp=1",
+      "description": "3,500 people Walking every hour on Portal de Langel, the busiest street in Barcelona"
+    },
+    {
+      "id": "1",
+      "name": "New York",
+      "score": 9,
+      "image": "https://nyc.eu/wp-content/uploads/2015/07/New_York_City-scaled.jpg",
+      "description": "800 Languages Spoken in New York, which makes it the most diverse city in the world"
+    },
+    {
+      "id": "",
+      "name": "Izrael",
+      "score": "10",
+      "descript": "The country of the jewish",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/PikiWiki_Israel_50544_jerusalem.jpg/800px-PikiWiki_Israel_50544_jerusalem.jpg"
+    }
+  ]
+}
