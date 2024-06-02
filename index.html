@@ -25,14 +25,36 @@
 
 </body>
 <script>
-    let myDest = []
-    myDest = getDestination()
-    async function getDestination() {
-        const response = await axios.get('http://localhost:3000/myDestination')
-        myDest = response.data
-        displayDestination()
-    }
 
+    let myDest = getDestination()
+
+    const HOST = "https://json-server-m87i.onrender.com/myDestination"
+
+    getDestinations();
+    async function getDestinations() {
+        const response = await axios.get(`${HOST}`);
+        myDest = response.data;
+        displayDestinations();
+    }
+    function displayDestinations() {
+        let finalStr = "";
+        for (let i = 0; i < myDest.length; i++) {
+            const destinationStr = `
+                <div class="col">
+                <div class="card" style="width: 18rem;max-width: 200px;">
+                    <img src="${myDest[i].image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${myDest[i].name} - ${myDest[i].score}</h5>
+                        <p class="card-text">${myDest[i].description}</p>
+                        <button class="btn btn-danger" onclick="deleteDestination('${myDest[i].id}')">Delete</button>
+                        <button class="btn btn-primary" onclick="editDestination(${i})">Edit</button>
+                    </div>
+                </div>
+                </div>`;
+            finalStr = finalStr + destinationStr;
+        }
+        display.innerHTML = finalStr;
+    }
 
     function displayDestination() {
         let finalHTML = "";
@@ -44,15 +66,16 @@
                     <div class="card-body">
                         <h5 class="card-title">${destination.name} ${destination.score}</h5>
                         <p class="card-text">${destination.description}</p>
-                        <button class="btn btn-danger" onclick="deleteDestination("${destination.id}")">Delete</button>
+                        <button class="btn btn-danger" onclick="deleteDestination("${i}")">Delete</button>
                         <button class="btn btn-primary" onclick="editDestination(${i})">Edit</button>
                     </div>
                 </div>`
             finalHTML += destinationStr;
         }
         display.innerHTML = finalHTML;
-        return finalHTML;
+        // return finalHTML;
     }
+
     display.innerHTML = displayDestination()
 
 
@@ -60,22 +83,14 @@
     async function addDest() {
         console.log("checking")
         let destination = {
-            id: "",
             name: nameDestination.value,
             score: scoreDestination.value,
             descript: descriptDestination.value,
             image: imageDestination.value
         }
         await axios.post('http://localhost:3000/myDestination', destination)
-        console.log(myDestination)
+        console.log(myDest)
         displayDestination()
-    }
-
-    async function deleteDestination(index) {
-        //const id = myDestinations[index].id
-        const response = await axios.delete(`http://localhost:3000/posts/${id}`);
-        console.log('Post deleted successfully!', response.data);
-        getDestination()
     }
 
     displayDestination()
