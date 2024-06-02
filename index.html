@@ -16,10 +16,10 @@
 
 <body>
     my destination:
-    add new destination- <input id="nameDestination"> <br>
-    add score to the destination- <input id="scoreDestination"><br>
-    add descript of the destination- <input id="descriptDestination"><br>
-    add image of of the destination- <input id="imageDestination"><br>
+    add a new destination- <input id="nameDestination"> <br>
+    add s score to the destination- <input id="scoreDestination"><br>
+    add a descript of the destination- <input id="descriptDestination"><br>
+    add an image of of the destination- <input id="imageDestination"><br>
     <button onclick="addDest()">add a new destination</button>
     <div id="display" class="card-group"></div>
 
@@ -94,6 +94,12 @@
         displayDestination()
     }
 
+    async function deleteDestination(destinationID) {
+        console.log("delete")
+        await axios.delete(`${HOST}/${destinationID}`)
+        console.log("delete dest")
+        displayDestination()
+    }
     displayDestination()
 </script>
 
