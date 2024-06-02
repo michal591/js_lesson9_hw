@@ -26,7 +26,7 @@
 </body>
 <script>
 
-    let myDest = getDestination()
+    let myDest = getDestinations()
 
     const HOST = "https://json-server-m87i.onrender.com/myDestination"
 
@@ -36,6 +36,7 @@
         myDest = response.data;
         displayDestinations();
     }
+
     function displayDestinations() {
         let finalStr = "";
         for (let i = 0; i < myDest.length; i++) {
@@ -88,7 +89,7 @@
             descript: descriptDestination.value,
             image: imageDestination.value
         }
-        await axios.post('http://localhost:3000/myDestination', destination)
+        await axios.post(`${HOST}`, destination)
         console.log(myDest)
         displayDestination()
     }
